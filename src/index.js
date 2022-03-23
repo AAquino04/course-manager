@@ -5,4 +5,4 @@ function Test() {
   return <p>Test</p>
 }
 
-render(<Hi />, document.getElementById("app"));
+render(<Test />, document.getElementById("app"));
