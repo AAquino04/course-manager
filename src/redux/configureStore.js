@@ -8,7 +8,7 @@ export default function configureStore(initialState) {
 
   return createStore(
     rootReducer,
-    initialState,
+    initialState, // Useful for SSR
     composeEnhancers(applyMiddleware(reduxImmutableStateInvariant())) // Warns if state is mutated
   );
 }
