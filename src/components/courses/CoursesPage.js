@@ -11,6 +11,7 @@ class CoursesPage extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
@@ -18,11 +19,16 @@ class CoursesPage extends React.Component {
     this.setState({ course });
   }
 
+  handleSubmit(event) {
+    event.preventDefault();
+    alert(this.state.course.title);
+  }
+
   render() {
     const { course } = this.state;
 
     return (
-      <form>
+      <form onSubmit={this.handleSubmit}>
         <h2>Courses</h2>
         <h3>Add Course</h3>
 
