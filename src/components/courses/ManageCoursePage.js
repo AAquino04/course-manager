@@ -7,7 +7,7 @@ import { bindActionCreators } from "redux";
 import CourseForm from "./CourseForm";
 import { newCourse } from "../../../tools/mockData"
 
-function ManageCoursePage({ courses, authors, actions, ...props }) {
+function ManageCoursePage({ courses, authors, actions, history, ...props }) {
   const [course, setCourse] = useState(props.course);
   const [errors, setErrors] = useState();
 
@@ -16,6 +16,8 @@ function ManageCoursePage({ courses, authors, actions, ...props }) {
       actions.loadCourses().catch(error => {
         alert("Loading courses failed" + error);
       });
+    } else {
+      setCourse({ ...props.course });
     }
 
     if (authors.length === 0) {
@@ -23,7 +25,7 @@ function ManageCoursePage({ courses, authors, actions, ...props }) {
         alert("Loading authors failed" + error);
       });
     }
-  }, []);
+  }, [props.course]);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -34,12 +36,21 @@ function ManageCoursePage({ courses, authors, actions, ...props }) {
     }));
   }
 
+  function handleSave(event) {
+    event.preventDefault();
+    actions.saveCourse(course).then(() => {
+      history.push("/courses");
+    });
+
+  }
+
   return (
     <CourseForm
       course={course}
       errors={errors}
       authors={authors}
       onChange={handleChange}
+      onSave={handleSave}
     />
   );
 }
@@ -48,12 +59,22 @@ ManageCoursePage.propTypes = {
   course: PropTypes.object.isRequired,
   courses: PropTypes.array.isRequired,
   authors: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
 }
 
-function mapStateToProps(state) {
+export function getCourseBySlug(courses, slug) {
+  return courses.find(course => course.slug === slug) || null;
+}
+
+function mapStateToProps(state, ownProps) {
+  const slug = ownProps.match.params.slug;
+  const course = slug && state.courses.length > 0
+    ? getCourseBySlug(state.courses, slug)
+    : newCourse;
+
   return {
-    course: newCourse,
+    course: course,
     courses: state.courses,
     authors: state.authors
   };
@@ -63,6 +84,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       loadCourses: bindActionCreators(courseActions.loadCourses, dispatch),
+      saveCourse: bindActionCreators(courseActions.saveCourse, dispatch),
       loadAuthors: bindActionCreators(authorActions.loadAuthors, dispatch),
     }
   };
