@@ -9,7 +9,7 @@ import CourseForm from "./CourseForm";
 import Spinner from "./../common/Spinner";
 import { toast } from "react-toastify";
 
-function ManageCoursePage({ courses, authors, actions, history, ...props }) {
+export function ManageCoursePage({ courses, authors, actions, history, ...props }) {
   const [course, setCourse] = useState(props.course);
   const [errors, setErrors] = useState();
   const [saving, setSaving] = useState(false);
