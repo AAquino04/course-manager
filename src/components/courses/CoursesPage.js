@@ -1,10 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import * as courseActions from "../../redux/actions/courseActions";
 import * as authorActions from "../../redux/actions/authorActions";
 import PropTypes from "prop-types";
-import { bindActionCreators } from "redux";
 import CourseList from "./CourseList";
+import Spinner from "./../common/Spinner";
 import { Redirect } from "react-router-dom";
 
 class CoursesPage extends React.Component {
@@ -34,6 +35,8 @@ class CoursesPage extends React.Component {
         {this.state.redirectToAddCoursePage && <Redirect to="/course" />}
 
         <h2>Courses</h2>
+
+        <Spinner />
 
         <button
           style={{ marginBottom: "20px" }}
