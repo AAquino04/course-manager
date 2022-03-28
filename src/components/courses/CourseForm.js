@@ -50,7 +50,7 @@ const CourseForm = ({
       />
 
       <button type="submit" disabled={saving} className="btn btn-primary mt-2">
-        {saving ? "Saving..." : "Save"}
+        {saving ? "Saving" : "Save"}
       </button>
     </form>
   );
