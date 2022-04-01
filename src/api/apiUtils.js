@@ -1,3 +1,5 @@
+// Both functions are called in author/course Api files in order to minimize code
+
 export async function handleResponse(response) {
   if (response.ok) return response.json();
   if (response.status === 400) {

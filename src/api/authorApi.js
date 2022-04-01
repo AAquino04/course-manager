@@ -3,6 +3,6 @@ const baseUrl = process.env.API_URL + "/authors/";
 
 export function getAuthors() {
   return fetch(baseUrl)
-    .then(handleResponse)
+    .then(handleResponse) // Returns response in JSON format
     .catch(handleError);
 }

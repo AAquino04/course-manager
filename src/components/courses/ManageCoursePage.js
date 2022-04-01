@@ -14,6 +14,7 @@ export function ManageCoursePage({ courses, authors, actions, history, ...props 
   const [errors, setErrors] = useState();
   const [saving, setSaving] = useState(false);
 
+  // Fetch refeito sempre que o course mudar para atualizar a lista de cursos
   useEffect(() => {
     if (courses.length === 0) {
       actions.loadCourses().catch(error => {
@@ -33,6 +34,7 @@ export function ManageCoursePage({ courses, authors, actions, history, ...props 
   function handleChange(event) {
     const { name, value } = event.target;
 
+    // Se o name do input é authorId, faz o parse para int, senão retorna o value
     setCourse(prevCourse => ({
       ...prevCourse,
       [name]: name === "authorId" ? parseInt(value, 10) : value,

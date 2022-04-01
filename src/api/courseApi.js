@@ -13,12 +13,12 @@ export function saveCourse(course) {
     headers: { "content-type": "application/json" },
     body: JSON.stringify(course)
   })
-    .then(handleResponse)
+    .then(handleResponse) // Returns response in JSON format 
     .catch(handleError);
 }
 
 export function deleteCourse(courseId) {
   return fetch(baseUrl + courseId, { method: "DELETE" })
-    .then(handleResponse)
+    .then(handleResponse) // Returns response in JSON format
     .catch(handleError);
 }
